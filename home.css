@@ -1,0 +1,213 @@
+/* L'accueil (outils/build-home.mjs) : papier et encre, sans couleur à soi —
+   chaque carte porte celle de son application. */
+
+:root {
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --ink: #1b1d22;
+  --ink-soft: #5e626b;
+  --line: #e5dfd5;
+  --jalsati: #a84f2a;
+  --notaru: #d2452f;
+  --shadow: 0 1px 2px rgb(27 29 34 / 0.05), 0 10px 28px rgb(27 29 34 / 0.07);
+  --text: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --title: Georgia, 'Noto Serif', 'Times New Roman', serif;
+  --arabic: 'Noto Naskh Arabic', 'Noto Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --surface: #1d2026;
+    --ink: #ece8e1;
+    --ink-soft: #a4a7ae;
+    --line: #2d3139;
+    --jalsati: #e08a5f;
+    --notaru: #e4573f;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 28px rgb(0 0 0 / 0.3);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--text);
+}
+
+body:lang(ar) {
+  font-family: var(--arabic);
+  font-size: 1.125rem;
+}
+
+.top,
+main,
+.foot {
+  width: min(100% - 32px, 760px);
+  margin-inline: auto;
+}
+
+.top {
+  display: flex;
+  justify-content: flex-end;
+  padding-block: 16px;
+}
+
+.langs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.langs a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  font: 0.9375rem var(--text);
+}
+
+.langs a:lang(ar) {
+  font-family: var(--arabic);
+}
+
+.langs a[aria-current='page'] {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+main {
+  flex: 1;
+  padding-block: 32px 48px;
+}
+
+h1 {
+  margin: 0;
+  font: 600 clamp(2.4rem, 7vw, 3.5rem) / 1.1 var(--title);
+}
+
+:lang(ar) h1 {
+  font-family: var(--arabic);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 12px 0 32px;
+  color: var(--ink-soft);
+  max-width: 52ch;
+}
+
+.apps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  color: inherit;
+  text-decoration: none;
+  border-inline-start: 5px solid var(--accent);
+  transition: transform 0.15s ease;
+}
+
+.app--jalsati {
+  --accent: var(--jalsati);
+}
+
+.app--notaru {
+  --accent: var(--notaru);
+}
+
+.app:hover {
+  transform: translateY(-2px);
+}
+
+.app:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.app img {
+  border-radius: 18px;
+}
+
+.app__text {
+  display: grid;
+  gap: 4px;
+}
+
+.app__text strong {
+  font: 600 1.5rem var(--title);
+}
+
+:lang(ar) .app__text strong {
+  font-family: var(--arabic);
+  font-weight: 700;
+}
+
+.app__text small {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+.app__go {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.foot {
+  padding-block: 24px 40px;
+  border-top: 1px solid var(--line);
+}
+
+.foot a {
+  color: var(--ink-soft);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 560px) {
+  .app {
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+  }
+
+  .app img {
+    width: 56px;
+    height: 56px;
+  }
+
+  .app__go {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app {
+    transition: none;
+  }
+}
